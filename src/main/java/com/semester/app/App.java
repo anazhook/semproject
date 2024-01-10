@@ -48,9 +48,7 @@ public class App {
             // Read the encrypted file into a byte array
             byte[] encryptedBytesFromFile = Files.readAllBytes(Paths.get(inpath));
             // Decrypt the encrypted bytes
-            byte[] decryptedBytes = ac.decrypt(encryptedBytesFromFile, keyPair.getPrivate());
-            // Write the decrypted bytes to the output file
-            Files.write(Paths.get(temppath), decryptedBytes);
+            ac.decrypt(inpath, outpath, keyPair.getPrivate());
         }
 
         else if (command == 3) {
@@ -71,10 +69,7 @@ public class App {
 
         else if (command == 2) {
             // Encrypt the input bytes
-            byte[] encryptedBytes = ac.encrypt(inputBytes, keyPair.getPublic());
-
-            // Write the encrypted bytes to the output file
-            Files.write(Paths.get(outpath), encryptedBytes);
+            ac.encrypt(temppath, outpath, keyPair.getPublic());
         }
 
         else if (command == 3) {
@@ -84,16 +79,6 @@ public class App {
         else {
             System.out.println("wrong command!");
         }
-
-        // // Read the encrypted file into a byte array
-        // byte[] encryptedBytesFromFile = Files.readAllBytes(Paths.get(outpath));
-
-        // // Decrypt the encrypted bytes
-        // byte[] decryptedBytes = ac.decrypt(encryptedBytesFromFile,
-        // keyPair.getPrivate());
-
-        // // Write the decrypted bytes to the output file
-        // Files.write(Paths.get(temppath), decryptedBytes);
     }
 
     public String getMessage() {
