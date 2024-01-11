@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.security.*;
 import java.security.spec.X509EncodedKeySpec;
 
-public class encrypting {
+public class Encrypting {
     private static final String ALGORITHM = "RSA";
 
     public KeyPair generateKeyPair() throws NoSuchAlgorithmException {
