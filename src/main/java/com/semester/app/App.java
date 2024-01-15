@@ -2,30 +2,19 @@ package com.semester.app;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.security.KeyPair;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class App {
-
-    private static final String MESSAGE = "Hello World!";
-
-    public App() {
-    }
-
     public static void main(String[] args) throws Exception {
-        Encrypting ac = new Encrypting(); // ac --- asymmetric cryptography bebe
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(System.in));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        Encrypting encr = new Encrypting();
 
         System.out.println("enter input and output files names:");
         String inpath = reader.readLine();
         String outpath = reader.readLine();
-        String format;
+        String format, key;
         String temppath = "temp.";
-        // Generate a new key pair
-        KeyPair keyPair = ac.generateKeyPair();
 
         System.out.println("type of input file (1 - plain, 2 - encrypted, 3 - archived):");
         int command = Integer.parseInt(reader.readLine());
@@ -39,7 +28,7 @@ public class App {
                 format = inpath.substring(i + 1);
             }
             temppath += format;
-            // Read the input file into a byte array
+            // Read the input file into a byte array ondhrjydhfgedhfy
             inputBytes = Files.readAllBytes(Paths.get(inpath));
             Files.write(Paths.get(temppath), inputBytes);
         }
@@ -51,8 +40,9 @@ public class App {
                 format = inpath.substring(i + 1);
             }
             temppath += format;
-            // Decrypt the file
-            ac.decrypt(inpath, temppath, keyPair.getPrivate());
+            System.out.println("The encryption key: ");
+            key = reader.readLine();
+            encr.decryptFile(inpath, temppath, key);
         }
 
         else if (command == 3) {
@@ -78,8 +68,10 @@ public class App {
         }
 
         else if (command == 2) {
-            // Encrypt the temp file
-            ac.encrypt(temppath, outpath, keyPair.getPublic());
+            // encrypt the temp file
+            System.out.println("The encryption key: ");
+            key = reader.readLine();
+            encr.encryptFile(temppath, outpath, key);
         }
 
         else if (command == 3) {
@@ -90,9 +82,5 @@ public class App {
         else {
             System.out.println("wrong command!");
         }
-    }
-
-    public String getMessage() {
-        return MESSAGE;
     }
 }
